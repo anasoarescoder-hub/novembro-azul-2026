@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novembro Azul</title>
+
+<style>
+
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:#F4F8FC;
+}
+
+.header{
+background:linear-gradient(180deg,#0057B8,#1A8CFF);
+color:white;
+padding:30px 20px;
+text-align:center;
+border-radius:0 0 25px 25px;
+}
+
+.logo{
+font-size:60px;
+margin-bottom:10px;
+}
+
+.header h1{
+margin:0;
+font-size:32px;
+}
+
+.header p{
+font-size:15px;
+opacity:.95;
+}
+
+.container{
+padding:20px;
+}
+
+.card{
+background:white;
+border-radius:18px;
+padding:18px;
+margin-bottom:15px;
+display:flex;
+align-items:center;
+gap:15px;
+box-shadow:0 4px 12px rgba(0,0,0,.12);
+cursor:pointer;
+transition:.3s;
+}
+
+.card:hover{
+transform:scale(1.02);
+}
+
+.icone{
+font-size:38px;
+width:55px;
+text-align:center;
+}
+
+.texto h3{
+margin:0;
+color:#0057B8;
+font-size:18px;
+}
+
+.texto p{
+margin-top:5px;
+font-size:13px;
+color:#666;
+}
+
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.65);
+z-index:999;
+}
+
+.modal-content{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+background:white;
+padding:25px;
+border-radius:25px 25px 0 0;
+max-height:85%;
+overflow:auto;
+}
+
+.fechar{
+float:right;
+font-size:28px;
+cursor:pointer;
+color:#0057B8;
+}
+
+.modal h2{
+color:#0057B8;
+margin-bottom:15px;
+}
+
+.modal ul{
+padding-left:20px;
+line-height:1.8;
+}
+
+.footer{
+padding:25px;
+text-align:center;
+font-size:12px;
+color:#666;
+}
+
+.btn{
+display:block;
+text-align:center;
+background:#0057B8;
+color:white;
+padding:14px;
+border-radius:12px;
+text-decoration:none;
+margin-top:20px;
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="logo">💙</div>
+
+<h1>Novembro Azul</h1>
+
+<p>
+Homem que se cuida vive melhor
+</p>
+
+</div>
+
+<div class="container">
+
+<div class="card" onclick="abrir('prostata')">
+<div class="icone">🔵</div>
+<div class="texto">
+<h3>Câncer de Próstata</h3>
+<p>Sintomas, fatores de risco e prevenção.</p>
+</div>
+</div>
+
+<div class="card" onclick="abrir('hipertensao')">
+<div class="icone">❤️</div>
+<div class="texto">
+<h3>Hipertensão</h3>
+<p>Descubra os sinais e como controlar.</p>
+</div>
+</div>
+
+<div class="card" onclick="abrir('diabetes')">
+<div class="icone">🩸</div>
+<div class="texto">
+<h3>Diabetes</h3>
+<p>Conheça os sintomas e cuidados.</p>
+</div>
+</div>
+
+<div class="card" onclick="abrir('ist')">
+<div class="icone">🛡️</div>
+<div class="texto">
+<h3>ISTs</h3>
+<p>Prevenção e diagnóstico precoce.</p>
+</div>
+</div>
+
+<div class="card" onclick="abrir('habitos')">
+<div class="icone">🏃</div>
+<div class="texto">
+<h3>Hábitos Saudáveis</h3>
+<p>Mais saúde e qualidade de vida.</p>
+</div>
+</div>
+
+</div>
+
+<div id="modal" class="modal">
+<div class="modal-content">
+
+<span class="fechar" onclick="fechar()">✕</span>
+
+<div id="conteudo"></div>
+
+<a href="#" class="btn">
+📍 Localizar Unidade de Saúde
+</a>
+
+</div>
+</div>
+
+<div class="footer">
+Novembro Azul • APS • Promoção da Saúde do Homem
+</div>
+
+<script>
+
+const dados = {
+
+prostata: `
+<h2>🔵 Câncer de Próstata</h2>
+
+<h3>Sintomas</h3>
+<ul>
+<li>Dificuldade para urinar</li>
+<li>Jato urinário fraco</li>
+<li>Necessidade frequente de urinar</li>
+<li>Sangue na urina ou no sêmen</li>
+</ul>
+
+<h3>Prevenção</h3>
+<ul>
+<li>Consulta periódica</li>
+<li>Controle do peso</li>
+<li>Atividade física</li>
+</ul>
+`,
+
+hipertensao: `
+<h2>❤️ Hipertensão</h2>
+
+<h3>Sintomas mais comuns</h3>
+<ul>
+<li>Dor de cabeça</li>
+<li>Tontura</li>
+<li>Visão embaçada</li>
+<li>Falta de ar</li>
+</ul>
+
+<h3>Prevenção</h3>
+<ul>
+<li>Reduzir o sal</li>
+<li>Atividade física</li>
+<li>Aferir a pressão regularmente</li>
+</ul>
+`,
+
+diabetes: `
+<h2>🩸 Diabetes</h2>
+
+<h3>Sintomas</h3>
+<ul>
+<li>Sede excessiva</li>
+<li>Muita fome</li>
+<li>Urinar frequentemente</li>
+<li>Perda de peso sem explicação</li>
+</ul>
+`,
+
+ist: `
+<h2>🛡️ ISTs</h2>
+
+<h3>Possíveis sinais</h3>
+<ul>
+<li>Feridas</li>
+<li>Corrimentos</li>
+<li>Ardência ao urinar</li>
+<li>Verrugas genitais</li>
+</ul>
+`,
+
+habitos: `
+<h2>🏃 Hábitos Saudáveis</h2>
+
+<ul>
+<li>Alimentação saudável</li>
+<li>150 minutos de atividade física semanal</li>
+<li>Dormir bem</li>
+<li>Não fumar</li>
+<li>Evitar álcool em excesso</li>
+</ul>
+`
+};
+
+function abrir(chave){
+document.getElementById('conteudo').innerHTML=dados[chave];
+document.getElementById('modal').style.display='block';
+}
+
+function fechar(){
+document.getElementById('modal').style.display='none';
+}
+
+</script>
+
+</body>
+</html>
